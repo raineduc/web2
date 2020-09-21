@@ -1,5 +1,6 @@
 package raineduc.web2;
 
+import raineduc.web2.beans.Result;
 import raineduc.web2.beans.ResultInputException;
 import raineduc.web2.beans.ResultsBean;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -25,14 +27,16 @@ public class AreaCheckServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String xCoord = request.getParameter("x-coord");
         String yCoord = request.getParameter("y-coord");
-        String radius = request.getParameter("r-param");
+        String[] radiusValues = request.getParameterValues("r-param");
         Map<String, String[]> parameterMap = request.getParameterMap();
         Enumeration<String> names = request.getParameterNames();
         response.setCharacterEncoding("UTF-8");
         PrintWriter printWriter = response.getWriter();
 
         try {
-            resultsBean.addResult(xCoord, yCoord, radius);
+            for (String radius: radiusValues) {
+                resultsBean.addResult(xCoord, yCoord, radius);
+            }
             HttpSession session = request.getSession();
             session.setAttribute("results", resultsBean.getResults());
             getServletContext().getRequestDispatcher("/templates/table.jsp").forward(request, response);

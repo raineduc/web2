@@ -43,16 +43,16 @@
         <span class="game-form__label">Введите параметр R: </span>
         <div class="input-wrapper game-form__input-wrapper">
           <div class="game-form__radio-group">
-            <label class="game-form__radius-label">1 <input type="radio" name="r-param" value="1"
-                                                            class="des-radio game-form__radius"></label>
-            <label class="game-form__radius-label">1,5 <input type="radio" name="r-param" value="1.5"
-                                                            class="des-radio game-form__radius"></label>
-            <label class="game-form__radius-label">2 <input type="radio" name="r-param" value="2"
-                                                            class="des-radio game-form__radius"></label>
-            <label class="game-form__radius-label">2,5 <input type="radio" name="r-param" value="2.5"
-                                                            class="des-radio game-form__radius"></label>
-            <label class="game-form__radius-label">3 <input type="radio" name="r-param" value="3"
-                                                            class="des-radio game-form__radius"></label>
+            <label class="game-form__radius-label">1 <input type="checkbox" name="r-param" value="1"
+                                                            class="des-input game-form__radius"></label>
+            <label class="game-form__radius-label">1,5 <input type="checkbox" name="r-param" value="1.5"
+                                                            class="des-input game-form__radius"></label>
+            <label class="game-form__radius-label">2 <input type="checkbox" name="r-param" value="2"
+                                                            class="des-input game-form__radius"></label>
+            <label class="game-form__radius-label">2,5 <input type="checkbox" name="r-param" value="2.5"
+                                                            class="des-input game-form__radius"></label>
+            <label class="game-form__radius-label">3 <input type="checkbox" name="r-param" value="3"
+                                                            class="des-input game-form__radius"></label>
           </div>
         </div>
       </div>
