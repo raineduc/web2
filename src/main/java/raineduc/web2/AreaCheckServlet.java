@@ -16,8 +16,7 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.Map;
 
-@WebServlet("/results")
-@MultipartConfig
+@WebServlet("/areaCheck")
 public class AreaCheckServlet extends HttpServlet {
     @EJB
     private ResultsBean resultsBean;

@@ -4,4 +4,24 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <servlet>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>raineduc.web2.ControllerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern></url-pattern>
+        <url-pattern>/results</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>ForbiddenFilter</filter-name>
+        <filter-class>raineduc.web2.filters.ForbiddenFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ForbiddenFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+        <url-pattern>/areaCheck</url-pattern>
+    </filter-mapping>
 </web-app>
