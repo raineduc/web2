@@ -18,4 +18,4 @@ export const getNumbers = (values) => values.map(getNumber);
 
 export const checkIfRadiusValid = (radius) => isNumber(radius) && radius >= 0;
 
-export const isYCoordInValidRange = (coord) => coord > -3 && coord < 5;
+export const isYCoordInValidRange = (coord) => coord > -5 && coord < 3;

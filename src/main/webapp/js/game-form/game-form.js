@@ -11,7 +11,7 @@ const coordSelectWrapper = coordSelect.closest(".game-form__input-wrapper");
 const coordInputWrapper = coordInput.closest(".game-form__input-wrapper");
 const radiusInputWrapper = radiusInput.closest(".game-form__input-wrapper");
 
-fetch("./server/hit.php", { method: "GET" })
+fetch("./results", { method: "GET" })
   .then(res => {
     if (res.ok) {
       return res.text();
@@ -39,14 +39,15 @@ gameForm.addEventListener("submit", async (e) => {
 
   if (error) return;
 
-  const response = await fetch("./server/hit.php", {
+  const response = await fetch("./results", {
     method: "POST",
     body: new FormData(gameForm),
   });
 
   if (response.ok) {
-    const html = await response.text();
-    tableWrapper.innerHTML = html;
+    // const html = await response.text();
+    // tableWrapper.innerHTML = html;
+    window.location.href = "/results";
   } else {
     const error = await response.text();
     alert(`Ошибка ${response.status} ${error ? `: ${error}` : ""}`);
@@ -110,7 +111,7 @@ const validateYCoordinate = (wrapper, value) => {
       removeError(wrapper);
       return true;
     }
-    addError(wrapper, "Координата Y должна быть в пределах (-3, 5)");
+    addError(wrapper, "Координата Y должна быть в пределах (-5, 3)");
     return false;
   }
   addError(wrapper, "В поле введено не число");
