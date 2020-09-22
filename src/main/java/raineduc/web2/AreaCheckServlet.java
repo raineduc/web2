@@ -14,14 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
 
 @WebServlet("/areaCheck")
 public class AreaCheckServlet extends HttpServlet {
-    @EJB
-    private ResultsBean resultsBean;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,11 +30,14 @@ public class AreaCheckServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         PrintWriter printWriter = response.getWriter();
 
+        processRequest(request, response);
+
         try {
+            HttpSession session = request.getSession();
+            ResultsBean resultsBean = (ResultsBean) session.getAttribute("resultsBean");
             for (String radius: radiusValues) {
                 resultsBean.addResult(xCoord, yCoord, radius);
             }
-            HttpSession session = request.getSession();
             session.setAttribute("results", resultsBean.getResults());
             getServletContext().getRequestDispatcher("/templates/table.jsp").forward(request, response);
         } catch (ResultInputException e) {
@@ -48,8 +48,18 @@ public class AreaCheckServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
         HttpSession session = request.getSession();
+        ResultsBean resultsBean = (ResultsBean) session.getAttribute("resultsBean");
         session.setAttribute("results", resultsBean.getResults());
         getServletContext().getRequestDispatcher("/results.jsp").forward(request, response);
+    }
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("resultsBean") == null) {
+            ResultsBean resultsBean = new ResultsBean();
+            session.setAttribute("resultsBean", resultsBean);
+        }
     }
 }
