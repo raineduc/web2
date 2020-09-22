@@ -20,17 +20,16 @@
       <div class="game-form__field">
         <label for="x-coord" class="game-form__label">Введите X координату: </label>
         <div class="input-wrapper game-form__input-wrapper">
-          <select id="x-coord" name="x-coord" class="des-input des-select game-form__coord-select">
-            <option value="-2">-2</option>
-            <option value="-1.5">-1,5</option>
-            <option value="-1">-1</option>
-            <option value="-0.5">-0,5</option>
-            <option value="0">0</option>
-            <option value="0.5">0,5</option>
-            <option value="1">1</option>
-            <option value="1.5">1,5</option>
-            <option value="2">2</option>
-          </select>
+          <input type="hidden" id="x-coord" name="x-coord" class="game-form__coord-select" formnovalidate>
+          <button class="des-button game-form__coord-button" data-value="-2" type="button">-2</button>
+          <button class="des-button game-form__coord-button" data-value="-1.5" type="button">-1,5</button>
+          <button class="des-button game-form__coord-button" data-value="-1" type="button">-1</button>
+          <button class="des-button game-form__coord-button" data-value="-0.5" type="button">-0,5</button>
+          <button class="des-button game-form__coord-button" data-value="0" type="button">0</button>
+          <button class="des-button game-form__coord-button" data-value="0.5" type="button">0,5</button>
+          <button class="des-button game-form__coord-button" data-value="1" type="button">1</button>
+          <button class="des-button game-form__coord-button" data-value="1.5" type="button">1,5</button>
+          <button class="des-button game-form__coord-button" data-value="2" type="button">2</button>
         </div>
       </div>
       <div class="game-form__field">
@@ -58,9 +57,7 @@
       </div>
       <button type="submit" class="des-button game-form__submit-button">Отправить</button>
     </form>
-    <div class="game-area">
-      <img src="${pageContext.request.contextPath}/static/area.png" alt="area" class="game-area__image">
-    </div>
+    <div class="game-area"><canvas class="game-area__image" width="420" height="420"></canvas></div>
   </div>
   <div class="game-results"></div>
 </div>

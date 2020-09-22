@@ -75,7 +75,7 @@ public class ResultsBean implements Serializable {
     }
 
     protected boolean isPointInRectangle(float x, float y, float radius) {
-        return x <= 0 && x >= -radius && y <= 0 && y >= radius/2;
+        return x <= 0 && x >= -radius && y <= 0 && y >= -radius/2;
     }
 
     protected boolean isPointInCircle(float x, float y, float radius) {

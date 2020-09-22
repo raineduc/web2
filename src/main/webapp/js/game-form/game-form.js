@@ -1,4 +1,6 @@
 import { isNumber, getNumber, isYCoordInValidRange } from "../validation.js";
+import { draw as drawGameArea, drawPoint as drawPointInGameArea, translateCanvasCoordsToRCoords } from "../game-area/game-area.js";
+import { Point } from "../game-area/point.js";
 
 const gameForm = document.documentElement.querySelector(".game-form");
 const tableWrapper = document.documentElement.querySelector(".game-results");
@@ -11,6 +13,10 @@ const coordSelectWrapper = coordSelect.closest(".game-form__input-wrapper");
 const coordInputWrapper = coordInput.closest(".game-form__input-wrapper");
 const radiusInputWrapper = radiusInput.closest(".game-form__input-wrapper");
 
+const canvas = document.querySelector('.game-area__image');
+
+const allowedXValues = [-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2];
+
 fetch("./results", { method: "GET" })
   .then(res => {
     if (res.ok) {
@@ -20,6 +26,10 @@ fetch("./results", { method: "GET" })
   .then(data => {
     tableWrapper.innerHTML = data;
   });
+
+drawGameArea(Array.from(document.querySelectorAll(".game-form__radius:checked")).map(
+    radiusInput => Number(radiusInput.value)
+));
 
 gameForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -59,6 +69,10 @@ Array.from(
 ).forEach((input) => {
   input.addEventListener("change", (e) => {
     if (input.checked) removeError(input.closest(".game-form__input-wrapper"));
+    const radiusInputs = Array.from(document.querySelectorAll(".game-form__radius:checked")).map(
+        radiusInput => Number(radiusInput.value)
+    );
+    drawGameArea(radiusInputs);
   });
 });
 
@@ -69,17 +83,49 @@ coordInput.addEventListener("blur", (e) => {
   }
 });
 
-coordInput.addEventListener("input", (e) => {
-  if (coordInput.value.search(/[\.\,]\d{6,}/) !== -1) { 
+const coordInputHandler = () => {
+  if (coordInput.value.search(/[\.\,]\d{6,}/) !== -1) {
     const str = `${parseFloat(coordInput.value).toFixed(6)}`;
     coordInput.value = str.slice(0, str.length - 1);
   }
-});
+};
+
+coordInput.addEventListener("input", coordInputHandler);
 
 coordSelect.addEventListener("change", (e) => {
   if (coordSelect.value) {
     removeError(coordInputWrapper);
   }
+});
+
+canvas.addEventListener("click", event => {
+  const radiusInputs = Array.from(document.querySelectorAll(".game-form__radius:checked")).map(
+      radiusInput => Number(radiusInput.value)
+  );
+  if (radiusInputs.length !== 0) {
+    const rect = canvas.getBoundingClientRect();
+    const point = new Point(event.clientX - rect.left, event.clientY - rect.top);
+    drawGameArea(radiusInputs, point);
+    const pointInArea = translateCanvasCoordsToRCoords(point, Math.max(...radiusInputs));
+    coordInput.value = String(pointInArea.getY());
+    const nearestAllowedX = allowedXValues.reduce((acc, x) =>
+        Math.abs(x - pointInArea.getX()) < Math.abs(acc - pointInArea.getX()) ? x : acc, Infinity);
+    document.querySelector(`.game-form__coord-button[data-value="${nearestAllowedX}"]`).click();
+    coordInputHandler();
+  } else {
+    alert("Не выбран радиус");
+  }
+});
+
+const coordButtons = document.querySelectorAll(".game-form__coord-button");
+
+Array.from(coordButtons).forEach(button => {
+  button.addEventListener("click", e => {
+    coordButtons.forEach(but => but.classList.remove("game-form__coord-button_checked"));
+    button.classList.add("game-form__coord-button_checked");
+    coordSelect.value = parseFloat(button.getAttribute("data-value"));
+    removeError(coordSelectWrapper);
+  });
 });
 
 const addError = (wrapper, message) => {
