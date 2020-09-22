@@ -13,7 +13,7 @@
 <header class="header">
   <span class="name">Хузин Рамиль Ришатович</span>
   <span class="group">Группа: P3212</span>
-  <span class="option">Вариант: 2326</span>
+  <span class="option">Вариант: 3137</span>
 </header>
 <div class="main">
   <div class="game-interact">
