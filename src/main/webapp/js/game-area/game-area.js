@@ -22,20 +22,22 @@ export const draw = (radiusValues, point) => {
 };
 
 export const drawPoint = (point) => {
-    ctx.restore();
-    ctx.save();
+    const scaleX = canvas.width / canvas.clientWidth;
+    const scaleY = canvas.height / canvas.clientHeight;
     ctx.beginPath();
-    ctx.arc(point.getX(), point.getY(), 5, 0, Math.PI*2);
+    ctx.arc(point.getX() * scaleX, point.getY() * scaleY, 5, 0, Math.PI*2);
     ctx.fill();
     ctx.closePath();
 }
 
 export const translateCanvasCoordsToRCoords = (point, maxRadius) => {
+    const scaleX = canvas.width / canvas.clientWidth;
+    const scaleY = canvas.height / canvas.clientHeight;
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     const lengthToRadiusMark = calculateLengthToRadiusMark(maxRadius, maxRadius);
-    const newX = (point.getX() - centerX) / lengthToRadiusMark * maxRadius;
-    const newY = (centerY - point.getY()) / lengthToRadiusMark * maxRadius;
+    const newX = (point.getX() * scaleX - centerX) / lengthToRadiusMark * maxRadius;
+    const newY = (centerY - point.getY() * scaleY) / lengthToRadiusMark * maxRadius;
     return new Point(newX, newY);
 };
 

@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web 1</title>
+  <title>Web 2</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+  <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/RiP2020.png" />
 </head>
 
 <body>

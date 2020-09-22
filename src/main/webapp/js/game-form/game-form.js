@@ -103,8 +103,7 @@ canvas.addEventListener("click", event => {
       radiusInput => Number(radiusInput.value)
   );
   if (radiusInputs.length !== 0) {
-    const rect = canvas.getBoundingClientRect();
-    const point = new Point(event.clientX - rect.left, event.clientY - rect.top);
+    const point = new Point(event.offsetX, event.offsetY);
     drawGameArea(radiusInputs, point);
     const pointInArea = translateCanvasCoordsToRCoords(point, Math.max(...radiusInputs));
     coordInput.value = String(pointInArea.getY());
