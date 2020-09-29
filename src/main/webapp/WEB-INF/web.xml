@@ -13,6 +13,7 @@
         <servlet-name>Controller</servlet-name>
         <url-pattern></url-pattern>
         <url-pattern>/results</url-pattern>
+        <url-pattern>/resultsTable</url-pattern>
     </servlet-mapping>
 
     <filter>

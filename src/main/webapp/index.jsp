@@ -44,15 +44,15 @@
         <div class="input-wrapper game-form__input-wrapper">
           <div class="game-form__radio-group">
             <label class="game-form__radius-label">1 <input type="checkbox" name="r-param" value="1"
-                                                            class="des-input game-form__radius"></label>
+                                                            class="des-input game-form__radius" autocomplete="off"></label>
             <label class="game-form__radius-label">1,5 <input type="checkbox" name="r-param" value="1.5"
-                                                            class="des-input game-form__radius"></label>
+                                                            class="des-input game-form__radius" autocomplete="off"></label>
             <label class="game-form__radius-label">2 <input type="checkbox" name="r-param" value="2"
-                                                            class="des-input game-form__radius"></label>
+                                                            class="des-input game-form__radius" autocomplete="off"></label>
             <label class="game-form__radius-label">2,5 <input type="checkbox" name="r-param" value="2.5"
-                                                            class="des-input game-form__radius"></label>
+                                                            class="des-input game-form__radius" autocomplete="off"></label>
             <label class="game-form__radius-label">3 <input type="checkbox" name="r-param" value="3"
-                                                            class="des-input game-form__radius"></label>
+                                                            class="des-input game-form__radius" autocomplete="off"></label>
           </div>
         </div>
       </div>

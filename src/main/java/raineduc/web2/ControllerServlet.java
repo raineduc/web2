@@ -1,5 +1,7 @@
 package raineduc.web2;
 
+import raineduc.web2.beans.ResultsBean;
+
 import static raineduc.web2.utils.StringUtils.isEmptyOrNull;
 
 import java.io.IOException;
@@ -13,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * <p>
@@ -28,6 +31,7 @@ public class ControllerServlet extends HttpServlet {
 
     private final String ROOT_PATH = "/";
     private final String RESULTS_PATH = "/results";
+    private final String TABLE_PATH = "/resultsTable";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -55,6 +59,20 @@ public class ControllerServlet extends HttpServlet {
                 break;
             case (RESULTS_PATH):
                 context.getRequestDispatcher("/areaCheck").forward(request, response);
+            case (TABLE_PATH):
+                processRequest(request, response);
+                HttpSession session = request.getSession();
+                ResultsBean resultsBean = (ResultsBean) session.getAttribute("resultsBean");
+                session.setAttribute("results", resultsBean.getResults());
+                context.getRequestDispatcher("/templates/table.jsp").forward(request, response);
+        }
+    }
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("resultsBean") == null) {
+            ResultsBean resultsBean = new ResultsBean();
+            session.setAttribute("resultsBean", resultsBean);
         }
     }
 }

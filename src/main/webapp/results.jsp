@@ -12,5 +12,6 @@
 </head>
 <body>
   <jsp:include page="templates/table.jsp"></jsp:include>
+  <a href="${pageContext.request.contextPath}/">Назад к форме</a>
 </body>
 </html>
